@@ -1,0 +1,13 @@
+.table-container {
+  background-color: rgb(221, 222, 157);
+  min-height: 100px;
+}
+
+table,
+th,
+td {
+  margin: 25px;
+  padding: 25px;
+  border: 1px solid black;
+  border-collapse: collapse;
+}

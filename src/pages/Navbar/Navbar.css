@@ -1,0 +1,43 @@
+li {
+  list-style-type: none;
+}
+
+li a {
+  float: left;
+  color: white;
+  text-decoration: none;
+  margin-top: 6rem;
+  padding: 1rem;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+.logo {
+  display: flex;
+  max-height: 4rem;
+  border-radius: 2rem;;
+  float: left;
+  margin-top: 2rem;
+  margin-left: 2rem;
+}
+
+.navbar {
+  display: block;
+}
+
+.navbar-container {
+  overflow: hidden;
+  height: 10rem;
+  background-color: #333;
+}
+
+.search-bar {
+  text-align: center;
+  float: right;
+  margin: 6rem 2rem;
+  padding: 0.5rem 6rem;
+  border-radius: 1rem;
+  border-width: 0;
+}
