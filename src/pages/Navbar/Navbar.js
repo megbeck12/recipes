@@ -26,6 +26,12 @@ export default function Navbar() {
               <li>
                 <a href="/create-new-recipe">Create New Recipe</a>
               </li>
+              <li>
+                <a href="/find-a-recipe">Find a Recipe</a>
+              </li>
+              <li>
+                <a href="/login">Login</a>
+              </li>
             </ul>
           )}
         </div>

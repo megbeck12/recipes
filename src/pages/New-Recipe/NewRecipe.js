@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./NewRecipe.css";
 import Form from "../../Form/Form";
 import { collection, addDoc } from "firebase/firestore";
-import {db} from "./../../firebase"
+import { db } from "./../../firebase";
 
 export default function NewRecipe() {
   const [formData, setFormData] = useState({
@@ -17,16 +17,13 @@ export default function NewRecipe() {
       await addDoc(collection(db, "recipes"), {
         recipes: formData,
       });
-      console.log("Form submitted to Firestore");
     } catch (error) {
       console.log("Error adding data to Firestore", error);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form data submitted", formData);
-    postFormData()
+  const handleSubmit = () => {
+    postFormData();
   };
 
   const handleInputChange = (e) => {
@@ -78,7 +75,6 @@ export default function NewRecipe() {
     },
   ];
   return (
-    //create a form -> POST call to Firebase
     <div>
       <Form
         fields={formFields}
