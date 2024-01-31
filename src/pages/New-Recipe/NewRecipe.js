@@ -17,12 +17,14 @@ export default function NewRecipe() {
       await addDoc(collection(db, "recipes"), {
         recipes: formData,
       });
+      console.log("recipe submitted to firestore!")
     } catch (error) {
       console.log("Error adding data to Firestore", error);
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     postFormData();
   };
 
