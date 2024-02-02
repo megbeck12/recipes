@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "./../../firebase";
+import "./GetRecipe.css";
 
 export default function GetRecipe() {
   const [data, setData] = useState([]);
@@ -12,17 +13,26 @@ export default function GetRecipe() {
       try {
         const recipesRef = collection(db, "recipes");
 
-        const q = searchTerm
-          ? query(
-              recipesRef,
-              where("recipes.recipeName", ">=", `${searchTerm}`)
-            )
-          : dropdownOption
+        const q =
+          searchTerm && dropdownOption
             ? query(
                 recipesRef,
-                where("recipes.cookingDevice", "==", `${dropdownOption}`)
+                where("recipes.recipeName", ">=", searchTerm),
+                where("recipes.recipeName", "<=", searchTerm + "\uf8ff"),
+                where("recipes.cookingDevice", "==", dropdownOption)
               )
-            : query(recipesRef);
+            : searchTerm
+              ? query(
+                  recipesRef,
+                  where("recipes.recipeName", ">=", searchTerm),
+                  where("recipes.recipeName", "<=", searchTerm + "\uf8ff")
+                )
+              : dropdownOption
+                ? query(
+                    recipesRef,
+                    where("recipes.cookingDevice", "==", dropdownOption)
+                  )
+                : query(recipesRef);
 
         const querySnapshot = await getDocs(q);
 
@@ -48,54 +58,61 @@ export default function GetRecipe() {
   };
 
   return (
-    <div>
-      <label htmlFor="recipe-searchbar">
-        <input
-          type="text"
-          id="recipe-searchbar"
-          placeholder="Search Recipe Name..."
-          value={searchTerm}
-          onChange={handleSearch}
-        />
-      </label>
-      <label htmlFor="recipe-dropdown">
-        <select
-          id="recipe-dropdown"
-          value={dropdownOption}
-          onChange={handleDropdown}
-        >
-          <option value="select-cooking-device">Select Cooking Device</option>
-          <option value="oven">Oven</option>
-          <option value="airfryer">Air Fryer</option>
-          <option value="stovetop">Stove Top</option>
-          <option value="microwave">Microwave</option>
-        </select>
-      </label>
-
-      {data.map((item) => (
-        <div>
-          <table>
-            <tbody>
-              <tr>
-                <th>Name</th>
-                <td>{item.recipes.recipeName}</td>
-              </tr>
-              <tr>
-                <th>Ingredients</th>
-                <td>{item.recipes.ingredients}</td>
-              </tr>
-              <tr>
-                <th>Cooking Time</th>
-                <td>{item.recipes.cookingTime}</td>
-              </tr>
-              <tr>
-                <th>Cooking Device</th>
-                <td>{item.recipes.cookingDevice}</td>
-              </tr>
-            </tbody>
-          </table>
+    <div className="container">
+      <div className="recipes">
+        <div className="search">
+          <label htmlFor="recipe-searchbar">
+            <input
+              type="text"
+              id="recipe-searchbar"
+              placeholder="Search Recipe Name..."
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+          </label>
+          <label htmlFor="recipe-dropdown">
+            <select
+              id="recipe-dropdown"
+              value={dropdownOption}
+              onChange={handleDropdown}
+            >
+              <option value="select-cooking-device">
+                Select Cooking Device
+              </option>
+              <option value="oven">Oven</option>
+              <option value="airfryer">Air Fryer</option>
+              <option value="stovetop">Stovetop</option>
+              <option value="microwave">Microwave</option>
+            </select>
+          </label>
         </div>
-      ))}
+        <div>
+          {data.map((item) => (
+            <div key={item.id}>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Name</th>
+                    <td>{item.recipes.recipeName}</td>
+                  </tr>
+                  <tr>
+                    <th>Ingredients</th>
+                    <td>{item.recipes.ingredients}</td>
+                  </tr>
+                  <tr>
+                    <th>Cooking Time</th>
+                    <td>{item.recipes.cookingTime}</td>
+                  </tr>
+                  <tr>
+                    <th>Cooking Device</th>
+                    <td>{item.recipes.cookingDevice}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

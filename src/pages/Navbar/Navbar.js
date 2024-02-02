@@ -3,16 +3,21 @@ import "./Navbar.css";
 import test_apple_image from "./../../assets/test_apple_image.jpeg";
 
 export default function Navbar() {
-  const [showNav, setShowNav] = useState(true);
+  const [showNav, setShowNav] = useState(false);
+  const [navMessage, setNavMessaage] = useState("Click to open menu");
 
-  const toggle = () => setShowNav(!showNav);
+  const toggle = () => {
+    const displayMessage = () => showNav ? "Click to open menu" : "Click to close menu";
+    setNavMessaage(displayMessage)
+    setShowNav(!showNav);
+  };
 
   return (
     <div className="navbar-container">
-      <img src={test_apple_image} alt="logo" className="logo" />
+      <a href="/"><img src={test_apple_image} alt="header-logo" className="logo"/></a>
       <nav className="navbar">
         <button className="logo" onClick={toggle}>
-          Click to Open Menu
+          {navMessage}
         </button>
         <div>
           {showNav && (

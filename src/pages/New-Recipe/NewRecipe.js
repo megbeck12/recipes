@@ -9,7 +9,7 @@ export default function NewRecipe() {
     recipeName: "",
     ingredients: "",
     cookingTime: "",
-    cookingDevice: "oven",
+    cookingDevice: "",
   });
 
   const postFormData = async () => {
@@ -17,15 +17,15 @@ export default function NewRecipe() {
       await addDoc(collection(db, "recipes"), {
         recipes: formData,
       });
-      console.log("recipe submitted to firestore!")
+      console.log("recipe submitted to firestore!");
     } catch (error) {
       console.log("Error adding data to Firestore", error);
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    postFormData();
+    await postFormData();
   };
 
   const handleInputChange = (e) => {

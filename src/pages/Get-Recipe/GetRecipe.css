@@ -1,0 +1,21 @@
+#recipe-dropdown {
+  width: 15rem;
+  display: inline-block;
+  border-radius: 0.8rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#recipe-searchbar {
+  width: 15rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: inline-block;
+  border-radius: 0.8rem;
+}
+
+.search {
+  margin: 1rem;
+}
+
+.recipes {
+  text-align: left;
+}
