@@ -8,53 +8,61 @@ export default function GetRecipe() {
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownOption, setDropDownOption] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const recipesRef = collection(db, "recipes");
+  const buildQuery = (term, dropdown) => {
+    const recipesRef = collection(db, "recipes");
 
-        const q =
-          searchTerm && dropdownOption
-            ? query(
-                recipesRef,
-                where("recipes.recipeName", ">=", searchTerm),
-                where("recipes.recipeName", "<=", searchTerm + "\uf8ff"),
-                where("recipes.cookingDevice", "==", dropdownOption)
-              )
-            : searchTerm
-              ? query(
-                  recipesRef,
-                  where("recipes.recipeName", ">=", searchTerm),
-                  where("recipes.recipeName", "<=", searchTerm + "\uf8ff")
-                )
-              : dropdownOption
-                ? query(
-                    recipesRef,
-                    where("recipes.cookingDevice", "==", dropdownOption)
-                  )
-                : query(recipesRef);
+    if (term && dropdown) {
+      return query(
+        recipesRef,
+        where("recipes.recipeName", ">=", term),
+        where("recipes.recipeName", "<=", term + "\uf8ff"),
+        where("recipes.cookingDevice", "==", dropdown)
+      );
+    }
 
-        const querySnapshot = await getDocs(q);
+    if (term) {
+      return query(
+        recipesRef,
+        where("recipes.recipeName", ">=", term),
+        where("recipes.recipeName", "<=", term + "\uf8ff")
+      );
+    }
 
-        const dataArray = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+    if (dropdown) {
+      return query(recipesRef, where("recipes.cookingDevice", "==", dropdown));
+    }
 
-        setData(dataArray);
-      } catch (error) {
-        console.log("Error fetching data from Firebase", error);
-      }
-    };
-    fetchData();
-  }, [searchTerm, dropdownOption]);
-
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
+    return query(recipesRef);
   };
 
-  const handleDropdown = (e) => {
+  const searchCollection = async (term, dropdown) => {
+    try {
+      const q = buildQuery(term, dropdown);
+      const querySnapshot = await getDocs(q);
+
+      const dataArray = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      return dataArray;
+    } catch (error) {
+      console.log("Error fetching data from Firebase", error);
+    }
+  };
+
+  const handleSearch = async (e) => {
+    setSearchTerm(e.target.value);
+    const term = e.target.value;
+    const data = await searchCollection(term, dropdownOption);
+    setData(data);
+  };
+
+  const handleDropdown = async (e) => {
     setDropDownOption(e.target.value);
+    const dropdown = e.target.value;
+    const data = await searchCollection(searchTerm, dropdown);
+    setData(data);
   };
 
   return (
@@ -76,7 +84,7 @@ export default function GetRecipe() {
               value={dropdownOption}
               onChange={handleDropdown}
             >
-              <option value="select-cooking-device">
+              <option value="">
                 Select Cooking Device
               </option>
               <option value="oven">Oven</option>
