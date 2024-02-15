@@ -6,6 +6,7 @@ import NewRecipe from "./pages/New-Recipe/NewRecipe";
 import Navbar from "./pages/Navbar/Navbar";
 import Login from "./pages/Login/Login";
 import GetRecipe from "./pages/Get-Recipe/GetRecipe";
+import Api from "./pages/API/Api";
 
 function App() {
 
@@ -17,7 +18,8 @@ function App() {
         <Route path="/spaghetti" element={<Spaghetti />} />
         <Route path="/create-new-recipe" element={<NewRecipe />} />
         <Route path="/login" element={<Login />} />
-        <Route path="find-a-recipe" element={<GetRecipe />} />
+        <Route path="/find-a-recipe" element={<GetRecipe />} />
+        <Route path="/api" element={<Api />} />
       </Routes>
     </Router>
   );

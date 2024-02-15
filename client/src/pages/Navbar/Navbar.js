@@ -37,6 +37,9 @@ export default function Navbar() {
               <li>
                 <a href="/login">Login</a>
               </li>
+              <li>
+                <a href="/api">Api Test</a>
+              </li>
             </ul>
           )}
         </div>

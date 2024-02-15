@@ -1,8 +1,6 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import "./NewRecipe.css";
 import Form from "../../Form/Form";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../firebase";
 
 export default function NewRecipe() {
   const [formData, setFormData] = useState({
@@ -14,12 +12,16 @@ export default function NewRecipe() {
 
   const postFormData = async () => {
     try {
-      await addDoc(collection(db, "recipes"), {
-        recipes: formData,
+      await fetch("http://localhost:3001/recipe/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-      console.log("recipe submitted to firestore!");
+      console.log("Post created successfully!");
     } catch (error) {
-      console.log("Error adding data to Firestore", error);
+      throw new Error("Error creating post", error.message);
     }
   };
 
@@ -38,7 +40,7 @@ export default function NewRecipe() {
 
   const formFields = [
     {
-      name: "recipeName",
+      name: "recipe_name",
       type: "text",
       label: "Recipe Name",
     },
@@ -48,12 +50,12 @@ export default function NewRecipe() {
       label: "Ingredients",
     },
     {
-      name: "cookingTime",
+      name: "cooking_time",
       type: "text",
       label: "Cooking Time",
     },
     {
-      name: "cookingDevice",
+      name: "cooking_device",
       type: "select",
       label: "Cooking Device",
       options: [
