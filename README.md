@@ -1,4 +1,4 @@
-# Welcome to Meghan's Recipe React and ExpressJS App
+# Welcome to Meghan's Recipes App using ReactJS and ExpressJS
 This project is written in ReactJS with ExpressJS and MySQL for the backend connection
 
 ## Available Scripts
