@@ -32,6 +32,5 @@ Both the api and the client must be started for the app to function properly.
 
 ## Database Information
 
-Upon download of the project, the following file will need to be created under the api folder:
-- variables.js
+Upon download of the project, the following file will need to be created under the api folder: variables.js.
 This file houses the login information for them MySQL database. See Meghan for login information
