@@ -4,10 +4,10 @@ import Form from "../../Form/Form";
 
 export default function NewRecipe() {
   const [formData, setFormData] = useState({
-    recipeName: "",
+    recipe_name: "",
     ingredients: "",
-    cookingTime: "",
-    cookingDevice: "",
+    cooking_time: "",
+    cooking_device: "",
   });
 
   const postFormData = async () => {

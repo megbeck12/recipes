@@ -11,25 +11,30 @@ const data = [];
 router.post("/post", (req, res) => {
   const postId = uuidv4();
   const postDataWithId = { id: postId, ...req.body };
-  console.log("post request recieved", postDataWithId);
 
-  const sql = "INSERT INTO recipes (id, recipe_name, ingredients, cooking_time, cooking_device) VALUES (?, ?, ?, ?, ?)"
+  const sql =
+    "INSERT INTO recipes (id, recipe_name, ingredients, cooking_time, cooking_device) VALUES (?, ?, ?, ?, ?)";
 
-  const {id, recipe_name, ingredients, cooking_time, cooking_device} = postDataWithId;
+  const { id, recipe_name, ingredients, cooking_time, cooking_device } =
+    postDataWithId;
 
-  sqlConnection.query(sql, [id, recipe_name, ingredients, cooking_time, cooking_device], (error, results, fields) => {
-    if (error) {
-      console.log("Error executing POST query", error);
-      res.status(500).send("Error inserting data into database");
-      return;
+  sqlConnection.query(
+    sql,
+    [id, recipe_name, ingredients, cooking_time, cooking_device],
+    (error, results, fields) => {
+      if (error) {
+        console.log("Error executing POST query", error);
+        res.status(500).send("Error inserting data into database");
+        return;
+      }
+      res.status(200).send(postDataWithId);
     }
-    res.status(200).send(postDataWithId);
-  })
+  );
 });
 
 //GET recipe handler
 router.get("/get", (req, res) => {
-  sqlConnection.query('SELECT * FROM recipes', (error, results, fields) => {
+  sqlConnection.query("SELECT * FROM recipes", (error, results, fields) => {
     if (error) {
       console.log("Error executing GET query", error);
       res.status(500).send("Error retrieving data from database");
