@@ -7,7 +7,7 @@ export default function Api() {
   useEffect(() => {
     const apiGetCall = async () => {
       try {
-        const response = await fetch("http://localhost:3001/recipe/get");
+        const response = await fetch("http://localhost:3001/recipes");
         console.log("GET endpoint executed successfully!");
 
         const jsonData = await response.json();
@@ -42,6 +42,10 @@ export default function Api() {
             <tr>
               <th>Cooking Device</th>
               <td>{item.cooking_device}</td>
+            </tr>
+            <tr>
+              <th>Author</th>
+              <td>{item.author_name}</td>
             </tr>
           </tbody>
         </table>

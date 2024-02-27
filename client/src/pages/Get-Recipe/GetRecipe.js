@@ -5,15 +5,14 @@ export default function GetRecipe() {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownOption, setDropDownOption] = useState("");
+  const [authorName, setAuthorName] = useState("")
 
   const apiGetCall = async () => {
     try {
-      const response = await fetch("http://localhost:3001/recipe/get");
-      console.log("GET endpoint executed successfully!");
-
+      const response = await fetch("http://localhost:3001/recipes");
       const jsonData = await response.json();
-
       setData(jsonData);
+      return jsonData;
     } catch (error) {
       throw new Error("Error executing GET endpoint", error.message);
     }
@@ -21,76 +20,117 @@ export default function GetRecipe() {
 
   const apiSearchTermGetCall = async (term) => {
     try {
-      const response = await fetch(`http://localhost:3001/recipe/post/${term}`)
-      
-      const jsonData = await response.json()
-      console.log("this is the json data", jsonData)
-
-      setData(jsonData)
+      const response = await fetch(
+        `http://localhost:3001/recipes/recipe/${term}`
+      );
+      const jsonData = await response.json();
+      setData(jsonData);
+      return jsonData;
     } catch (error) {
-      throw new Error("Error executing GET endpoint", error.message)
+      throw new Error("Error executing GET recipe endpoint", error.message);
     }
-  }
+  };
 
-  const apiDropdownGetCall = async (dropdown) => {
+  const apiRecipeDropdownGetCall = async (dropdown) => {
     try {
-      console.log("before response", dropdown)
-      const response = await fetch(`http://localhost:3001/recipe/post/${dropdown}`)
-      console.log("after response", response)
-      const jsonData = await response.json()
-console.log("afterjsonData")
-      setData(jsonData)
+      const response = await fetch(
+        `http://localhost:3001/recipes/cookingdevice/${dropdown}`
+      );
+      const jsonData = await response.json();
+      setData(jsonData);
+      return jsonData;
     } catch (error) {
-      throw new Error("Error executing GET endpoint", error.message)
+      throw new Error("Error executing GET recipe endpoint", error.message);
+    }
+  };
+
+  const apiAuthorGetCall = async (authorName) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/recipes/author/${authorName}`
+      );
+      const jsonData = await response.json();
+      setData(jsonData)
+      return jsonData;
+    } catch (error) {
+      throw new Error("Error executing GET author endpoint", error.message)
     }
   }
 
-  const buildQuery = (term, dropdown) => {
+  const apiAuthorAndDeviceGetCall = async (authorName, dropdownOption) => {
+    try {
+      const response = await fetch(`http://localhost:3001/recipes/deviceandauthor/${dropdownOption}/${authorName}`);
+      const jsonData = await response.json();
+      setData(jsonData)
+      return jsonData;
+    } catch (error) {
+      throw new Error("Error executing GET author and device endpoint", error.message)
+    }
+  }
+
+  const buildQuery = async (term, dropdown, author) => {
     if (term && dropdown) {
-      return apiSearchTermGetCall(term);
+      return await apiSearchTermGetCall(term);
+    }
+
+    if (dropdown && author) {
+      return await apiAuthorAndDeviceGetCall(author, dropdown)
     }
 
     if (term) {
-      return apiSearchTermGetCall(term);
+      return await apiSearchTermGetCall(term);
     }
 
     if (dropdown) {
-      return apiDropdownGetCall(dropdown);
+      return await apiRecipeDropdownGetCall(dropdown);
     }
-    return apiGetCall();
+
+    if (author) {
+      return await apiAuthorGetCall(author)
+    }
+    return await apiGetCall();
   };
 
-  const searchCollection = async (term, dropdown) => {
+  const searchCollection = async (term, dropdown, author) => {
     try {
-      const q = await apiDropdownGetCall(dropdown);
-      // const q = buildQuery(term, dropdown);
-      console.log("before query snapshot")
-      const querySnapshot = buildQuery(term, dropdown);
-      console.log(querySnapshot)
+      const querySnapshot = await buildQuery(term, dropdown, author);
+      const dataArray = querySnapshot.map((key, index) => ({
+        id: index,
+        ...key,
+      }));
 
-      // const dataArray = q.map((item, index) => ({
-      //   id: index,
-      //   ...item,
-      // }));
-
-      return q;
+      return dataArray;
     } catch (error) {
       console.log("Error fetching data from backend", error);
     }
   };
 
   const handleSearch = async (e) => {
-    setSearchTerm(e.target.value);
     const term = e.target.value;
-    const data = await searchCollection(term, dropdownOption);
-    setData(data);
+    setSearchTerm(term);
+    const searchTermData = await searchCollection(term, dropdownOption, authorName);
+    setData(searchTermData);
   };
 
   const handleDropdown = async (e) => {
-    setDropDownOption(e.target.value);
     const dropdown = e.target.value;
-    const data = await searchCollection(searchTerm, dropdown);
-    setData(data);
+    setDropDownOption(dropdown);
+    const dropdownData = await searchCollection(searchTerm, dropdown);
+    setData(dropdownData);
+  };
+
+  const handleAuthorSearch = async (e) => {
+    const authorSearch = e.target.value;
+    setAuthorName(authorSearch);
+    const authorData = await searchCollection(searchTerm, dropdownOption, authorSearch);
+    setData(authorData)
+  }
+
+  const handleDefaultLoad = async () => {
+    const searchTerm = "";
+    const dropdownOption = "";
+    const defaultData = await searchCollection(searchTerm, dropdownOption);
+    setData(defaultData);
   };
 
   return (
@@ -119,19 +159,31 @@ console.log("afterjsonData")
               <option value="microwave">Microwave</option>
             </select>
           </label>
+          <label htmlFor="recipe-searchbar">
+            <input
+              type="text"
+              id="recipe-searchbar"
+              placeholder="Search Recipes By Author Name"
+              value={authorName}
+              onChange={handleAuthorSearch}
+            />
+          </label>
+          <label htmlFor="default-load">
+            <button id="default-load" onClick={handleDefaultLoad}>Load All Recipes</button>
+          </label>
         </div>
         <div>
-          {/* {data.map((item) => (
+          {data.map((item) => (
             <div key={item}>
               <table>
                 <tbody>
-                <tr>
+                  {/* <tr>
                     <th>Id</th>
                     <td>{item.id}</td>
-                  </tr>
+                  </tr> */}
                   <tr>
                     <th>Name</th>
-                    <td>{item.recipeName}</td>
+                    <td>{item.recipe_name}</td>
                   </tr>
                   <tr>
                     <th>Ingredients</th>
@@ -139,16 +191,20 @@ console.log("afterjsonData")
                   </tr>
                   <tr>
                     <th>Cooking Time</th>
-                    <td>{item.cookingTime}</td>
+                    <td>{item.cooking_time}</td>
                   </tr>
                   <tr>
                     <th>Cooking Device</th>
-                    <td>{item.cookingDevice}</td>
+                    <td>{item.cooking_device}</td>
+                  </tr>
+                  <tr>
+                    <th>Author</th>
+                    <td>{item.author_name}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-          ))} */}
+          ))}
         </div>
       </div>
     </div>

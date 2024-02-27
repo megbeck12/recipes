@@ -7,12 +7,12 @@ export default function NewRecipe() {
     recipe_name: "",
     ingredients: "",
     cooking_time: "",
-    cooking_device: "",
+    cooking_device: "oven",
   });
 
   const postFormData = async () => {
     try {
-      await fetch("http://localhost:3001/recipe/post", {
+      await fetch("http://localhost:3001/recipes/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,6 +76,11 @@ export default function NewRecipe() {
           label: "Air Fryer",
         },
       ],
+    },
+    {
+      name: "author_name",
+      type: "text",
+      label: "Author Name",
     },
   ];
   return (
