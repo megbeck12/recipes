@@ -26,9 +26,6 @@ export default function Navbar() {
                 <a href="/">Homepage</a>
               </li>
               <li>
-                <a href="/spaghetti">Spaghetti Recipe</a>
-              </li>
-              <li>
                 <a href="/create-new-recipe">Create New Recipe</a>
               </li>
               <li>
