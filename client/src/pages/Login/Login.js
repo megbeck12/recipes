@@ -35,47 +35,47 @@ export default function Login() {
   ];
 
   return (
-    <div>
-      <Form
-        fields={formFields}
-        userData={userData}
-        onInputChange={handleInputChange}
-        onSubmit={handleSubmit}
-      />
-    </div>
-    // <form method="post">
-    //   <div className="container">
-    //     <label for="username">
-    //       <strong>Username</strong>
-    //     </label>
-    //     <input
-    //       type="text"
-    //       placeholder="Enter Username"
-    //       name="username"
-    //       required
-    //     />
-    //     <label for="password">
-    //       <strong>Password</strong>
-    //     </label>
-    //     <input
-    //       type="text"
-    //       placeholder="Enter Password"
-    //       name="password"
-    //       required
-    //     />
-    //     <button type="submit">Login</button>
-    //     <label>
-    //       <input type="checkbox" checked={false} name="remember" />
-    //     </label>
-    //     <button type="button" class="cancelbtn">
-    //       Cancel
-    //     </button>
-    //     <div>
-    //       <span class="psw">
-    //         <a href="google.com">Forgot password?</a>
-    //       </span>
-    //     </div>
-    //   </div>
-    // </form>
+    // <div>
+    //   <Form
+    //     fields={formFields}
+    //     userData={userData}
+    //     onInputChange={handleInputChange}
+    //     onSubmit={handleSubmit}
+    //   />
+    // </div>
+    <form method="post">
+      <div className="container">
+        <label for="username">
+          <strong>Username</strong>
+        </label>
+        <input
+          type="text"
+          placeholder="Enter Username"
+          name="username"
+          required
+        />
+        <label for="password">
+          <strong>Password</strong>
+        </label>
+        <input
+          type="text"
+          placeholder="Enter Password"
+          name="password"
+          required
+        />
+        <button type="submit">Login</button>
+        <label>
+          <input type="checkbox" checked={false} name="remember" />
+        </label>
+        <button type="button" class="cancelbtn">
+          Cancel
+        </button>
+        <div>
+          <span class="psw">
+            <a href="google.com">Forgot password?</a>
+          </span>
+        </div>
+      </div>
+    </form>
   );
 }

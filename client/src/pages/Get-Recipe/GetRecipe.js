@@ -174,7 +174,7 @@ export default function GetRecipe() {
         </div>
         <div>
           {data.map((item) => (
-            <div key={item}>
+            <div key={JSON.stringify(item)}>
               <table>
                 <tbody>
                   {/* <tr>
