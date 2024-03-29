@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import "./NewRecipe.css";
+import "./../../App.css";
 import Form from "../../Form/Form";
+import Header from "../Header/Header";
+import recipe_form from "./../../assets/recipe_form.jpg"
+import Footer from "../../Footer/Footer";
 
 export default function NewRecipe() {
   const [formData, setFormData] = useState({
@@ -84,13 +87,19 @@ export default function NewRecipe() {
     },
   ];
   return (
-    <div>
-      <Form
-        fields={formFields}
-        formData={formData}
-        onInputChange={handleInputChange}
-        onSubmit={handleSubmit}
-      />
+    <div className="container-align">
+      <Header img={recipe_form} title={"Have a recipe you'd like to submit?"}/>
+      <div>
+        <Form
+          fields={formFields}
+          formData={formData}
+          onInputChange={handleInputChange}
+          onSubmit={handleSubmit}
+        />
+      </div>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import "./GetRecipe.css";
+import "./../../App.css";
+import Header from "../Header/Header";
+import recipe_form from "./../../assets/recipe_form.jpg"
+import Footer from "../../Footer/Footer";
 
 export default function GetRecipe() {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [dropdownOption, setDropDownOption] = useState("");
-  const [authorName, setAuthorName] = useState("")
+  const [authorName, setAuthorName] = useState("");
 
   const apiGetCall = async () => {
     try {
@@ -50,23 +54,28 @@ export default function GetRecipe() {
         `http://localhost:3001/recipes/author/${authorName}`
       );
       const jsonData = await response.json();
-      setData(jsonData)
+      setData(jsonData);
       return jsonData;
     } catch (error) {
-      throw new Error("Error executing GET author endpoint", error.message)
+      throw new Error("Error executing GET author endpoint", error.message);
     }
-  }
+  };
 
   const apiAuthorAndDeviceGetCall = async (authorName, dropdownOption) => {
     try {
-      const response = await fetch(`http://localhost:3001/recipes/deviceandauthor/${dropdownOption}/${authorName}`);
+      const response = await fetch(
+        `http://localhost:3001/recipes/deviceandauthor/${dropdownOption}/${authorName}`
+      );
       const jsonData = await response.json();
-      setData(jsonData)
+      setData(jsonData);
       return jsonData;
     } catch (error) {
-      throw new Error("Error executing GET author and device endpoint", error.message)
+      throw new Error(
+        "Error executing GET author and device endpoint",
+        error.message
+      );
     }
-  }
+  };
 
   const buildQuery = async (term, dropdown, author) => {
     if (term && dropdown) {
@@ -74,7 +83,7 @@ export default function GetRecipe() {
     }
 
     if (dropdown && author) {
-      return await apiAuthorAndDeviceGetCall(author, dropdown)
+      return await apiAuthorAndDeviceGetCall(author, dropdown);
     }
 
     if (term) {
@@ -86,7 +95,7 @@ export default function GetRecipe() {
     }
 
     if (author) {
-      return await apiAuthorGetCall(author)
+      return await apiAuthorGetCall(author);
     }
     return await apiGetCall();
   };
@@ -108,7 +117,11 @@ export default function GetRecipe() {
   const handleSearch = async (e) => {
     const term = e.target.value;
     setSearchTerm(term);
-    const searchTermData = await searchCollection(term, dropdownOption, authorName);
+    const searchTermData = await searchCollection(
+      term,
+      dropdownOption,
+      authorName
+    );
     setData(searchTermData);
   };
 
@@ -122,9 +135,13 @@ export default function GetRecipe() {
   const handleAuthorSearch = async (e) => {
     const authorSearch = e.target.value;
     setAuthorName(authorSearch);
-    const authorData = await searchCollection(searchTerm, dropdownOption, authorSearch);
-    setData(authorData)
-  }
+    const authorData = await searchCollection(
+      searchTerm,
+      dropdownOption,
+      authorSearch
+    );
+    setData(authorData);
+  };
 
   const handleDefaultLoad = async () => {
     const searchTerm = "";
@@ -134,7 +151,8 @@ export default function GetRecipe() {
   };
 
   return (
-    <div className="container">
+    <div className="container-align">
+      <Header img={recipe_form} title={"Have a recipe you'd like to submit?"} />
       <div className="recipes">
         <div className="search">
           <label htmlFor="recipe-searchbar">
@@ -169,7 +187,9 @@ export default function GetRecipe() {
             />
           </label>
           <label htmlFor="default-load">
-            <button id="default-load" onClick={handleDefaultLoad}>Load All Recipes</button>
+            <button id="default-load" onClick={handleDefaultLoad}>
+              Load All Recipes
+            </button>
           </label>
         </div>
         <div>
@@ -207,6 +227,9 @@ export default function GetRecipe() {
           ))}
         </div>
       </div>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Form from "../../Form/Form";
+import "./../../App.css"
 
 export default function Login() {
   const [userData, setUserData] = useState({ username: "", password: "" });
@@ -45,7 +46,7 @@ export default function Login() {
     // </div>
     <form method="post">
       <div className="container">
-        <label for="username">
+        <label htmlFor="username">
           <strong>Username</strong>
         </label>
         <input
@@ -54,7 +55,7 @@ export default function Login() {
           name="username"
           required
         />
-        <label for="password">
+        <label htmlFor="password">
           <strong>Password</strong>
         </label>
         <input
@@ -63,15 +64,19 @@ export default function Login() {
           name="password"
           required
         />
+        <div>
         <button type="submit">Login</button>
         <label>
-          <input type="checkbox" checked={false} name="remember" />
+          <input type="checkbox" name="remember" defaultChecked={false} />
         </label>
-        <button type="button" class="cancelbtn">
-          Cancel
-        </button>
+        </div>
         <div>
-          <span class="psw">
+          <button type="button" className="cancelbtn">
+            Cancel
+          </button>
+        </div>
+        <div>
+          <span className="psw">
             <a href="google.com">Forgot password?</a>
           </span>
         </div>
