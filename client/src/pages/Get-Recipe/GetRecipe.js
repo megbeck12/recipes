@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import "./GetRecipe.css";
 import "./../../App.css";
 import Header from "../Header/Header";
-import recipe_form from "./../../assets/recipe_form.jpg"
-import Footer from "../../Footer/Footer";
+import recipe_form from "./../../assets/recipe_form.jpg";
+import Footer from "../Footer/Footer";
+import RecipeCard from "../Cards/RecipeCard";
+import "./../Cards/Card.css";
 
 export default function GetRecipe() {
   const [data, setData] = useState([]);
@@ -153,79 +155,56 @@ export default function GetRecipe() {
   return (
     <div className="container-align">
       <Header img={recipe_form} title={"Have a recipe you'd like to submit?"} />
-      <div className="recipes">
-        <div className="search">
-          <label htmlFor="recipe-searchbar">
-            <input
-              type="text"
-              id="recipe-searchbar"
-              placeholder="Search Recipe Name..."
-              value={searchTerm}
-              onChange={handleSearch}
+      <div className="search">
+        <label htmlFor="recipe-searchbar">
+          <input
+            type="text"
+            id="recipe-searchbar"
+            placeholder="Search Recipe Name..."
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+        </label>
+        <label htmlFor="recipe-dropdown">
+          <select
+            id="recipe-dropdown"
+            value={dropdownOption}
+            onChange={handleDropdown}
+          >
+            <option value="">Select Cooking Device</option>
+            <option value="oven">Oven</option>
+            <option value="airfryer">Air Fryer</option>
+            <option value="stovetop">Stovetop</option>
+            <option value="microwave">Microwave</option>
+          </select>
+        </label>
+        <label htmlFor="recipe-searchbar">
+          <input
+            type="text"
+            id="recipe-searchbar"
+            placeholder="Search Recipes By Author Name"
+            value={authorName}
+            onChange={handleAuthorSearch}
+          />
+        </label>
+        <label htmlFor="default-load">
+          <button id="default-load" onClick={handleDefaultLoad}>
+            Load All Recipes
+          </button>
+        </label>
+      </div>
+      <div className="card-container">
+        {data.map((item) => (
+          <div key={JSON.stringify(item)} className="recipes">
+            <RecipeCard
+              name={item.recipe_name}
+              ingredients={item.ingredients}
+              cooking_time={item.cooking_time}
+              cooking_device={item.cooking_device}
+              author={item.author_name}
             />
-          </label>
-          <label htmlFor="recipe-dropdown">
-            <select
-              id="recipe-dropdown"
-              value={dropdownOption}
-              onChange={handleDropdown}
-            >
-              <option value="">Select Cooking Device</option>
-              <option value="oven">Oven</option>
-              <option value="airfryer">Air Fryer</option>
-              <option value="stovetop">Stovetop</option>
-              <option value="microwave">Microwave</option>
-            </select>
-          </label>
-          <label htmlFor="recipe-searchbar">
-            <input
-              type="text"
-              id="recipe-searchbar"
-              placeholder="Search Recipes By Author Name"
-              value={authorName}
-              onChange={handleAuthorSearch}
-            />
-          </label>
-          <label htmlFor="default-load">
-            <button id="default-load" onClick={handleDefaultLoad}>
-              Load All Recipes
-            </button>
-          </label>
-        </div>
-        <div>
-          {data.map((item) => (
-            <div key={JSON.stringify(item)}>
-              <table>
-                <tbody>
-                  {/* <tr>
-                    <th>Id</th>
-                    <td>{item.id}</td>
-                  </tr> */}
-                  <tr>
-                    <th>Name</th>
-                    <td>{item.recipe_name}</td>
-                  </tr>
-                  <tr>
-                    <th>Ingredients</th>
-                    <td>{item.ingredients}</td>
-                  </tr>
-                  <tr>
-                    <th>Cooking Time</th>
-                    <td>{item.cooking_time}</td>
-                  </tr>
-                  <tr>
-                    <th>Cooking Device</th>
-                    <td>{item.cooking_device}</td>
-                  </tr>
-                  <tr>
-                    <th>Author</th>
-                    <td>{item.author_name}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
       <footer>
         <Footer />

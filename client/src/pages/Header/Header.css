@@ -1,8 +1,35 @@
 .header {
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-  }
+  position: relative;
+  display: grid;
+  font-size: calc(10px + 2vmin);
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 50px;
+}
+
+.header-image {
+  max-height: 500px;
+  width: 100%;
+}
+
+.overlay {
+  position: absolute;
+  width: 34%;
+  height: 15%;
+  bottom: 10%;
+  left: 5%;
+  background: rgba(245, 245, 245, 0.683);
+  padding-top: 30px;
+  padding-left: 20px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: left;
+  align-items: top;
+
+}

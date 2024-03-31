@@ -1,19 +1,19 @@
 import React from "react";
-import lasagna from "./../../assets/lasagna.jpg";
-import "./../../App.css";
-import Card from "./../Card/Card";
-import "./../Card/Card.css";
-import Footer from "./../../Footer/Footer";
+import "./../../App.css"
+import Card from "../Cards/Card";
+import "./../Cards/Card.css"
+import Footer from "../Footer/Footer";
 import flour from "./../../assets/flour.jpeg"
 import bowls_grain from "./../../assets/bowls_grain.jpg"
 import one_pan from "./../../assets/one_pan.jpg"
 import pretzels from "./../../assets/pretzels.jpeg"
 import Header from "../Header/Header";
+import deep_dish from "./../../assets/deep_dish.jpg"
 
 function Homepage() {
   return (
     <div className="container-align">
-      <Header img={lasagna} title={"Easy Recipes for Late Night Dinners"} url={"/find-a-recipe"}/>
+      <Header img={deep_dish} title={"Easy Recipes for Late Night Dinners"} url={"/find-a-recipe"}/>
       <div className="card-container">
         <Card
           img={flour}

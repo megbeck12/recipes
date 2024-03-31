@@ -1,6 +1,6 @@
 import React from "react";
 import "./../../App.css";
-import "./../Card/Card.css";
+import "./../Cards/Card.css"
 
 export default function Card(props) {
   return (

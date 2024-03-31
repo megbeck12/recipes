@@ -61,50 +61,20 @@ td {
   border-collapse: collapse;
 }
 
-.overlay {
-  position: absolute;
-  width: 40%;
-  height: 22%;
-  bottom: 10%;
-  left: 5%;
-  background: rgba(245, 245, 245, 0.683);
-}
-
-.overlay-text {
-  padding-top: 30px;
-  padding-left: 20px;
-  text-align: left;
-  cursor: pointer;
-}
-
-.header-container {
-  width: 90%;
-  max-width: 1840px;
-  height: 47%;
-  position: absolute;
-  top: 50px;
-  overflow: hidden;
-}
-
 .container {
-  display: grid;
-  place-items: center;
-}
-
-.header-image {
-  width: 100%;
-  height: auto;
-  display: block;
+  display: flex;
 }
 
 footer {
-  position: absolute;
+  display: flex;
+  flex-direction: row;
   height: 200px;
   width: 100%;
   background-color: rgb(26, 26, 26);
 }
 
 .container-align {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  position: relative;
 }

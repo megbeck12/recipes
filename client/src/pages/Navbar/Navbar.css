@@ -1,8 +1,6 @@
 .logo {
-  display: flex;
   max-height: 4rem;
   border-radius: 2rem;
-  float: left;
   margin-top: 2rem;
   margin-left: 2rem;
 }
@@ -13,9 +11,9 @@
 }
 
 .menu {
-  position: absolute;
-  display: inline;
-  top: 35%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   background-color: white;
 }
 
@@ -24,25 +22,15 @@
 }
 
 .navbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  display: flex;
 }
 
 .navbar-container {
-  position: relative;
+  display: flex;
+  flex-direction: row;
   box-shadow:
     rgba(50, 50, 93, 0.25) 0px 6px 30px -5px,
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-  top: 100%;
-  left: 0;
-  z-index: 999;
-  overflow: hidden;
   height: 8rem;
   background-color: white;
-}
-
-.navbar:hover .navbar-container {
-  display: block;
 }

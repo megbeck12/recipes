@@ -1,6 +1,11 @@
 import React, { useState } from "react";
-import Form from "../../Form/Form";
-import "./../../App.css"
+import Form from "../Form/Form";
+import "./../../App.css";
+import "./../Header/Header.css";
+import "./../Footer/Footer.css";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import deep_dish from "./../../assets/deep_dish.jpg";
 
 export default function Login() {
   const [userData, setUserData] = useState({ username: "", password: "" });
@@ -44,43 +49,53 @@ export default function Login() {
     //     onSubmit={handleSubmit}
     //   />
     // </div>
-    <form method="post">
-      <div className="container">
-        <label htmlFor="username">
-          <strong>Username</strong>
-        </label>
-        <input
-          type="text"
-          placeholder="Enter Username"
-          name="username"
-          required
-        />
-        <label htmlFor="password">
-          <strong>Password</strong>
-        </label>
-        <input
-          type="text"
-          placeholder="Enter Password"
-          name="password"
-          required
-        />
-        <div>
-        <button type="submit">Login</button>
-        <label>
-          <input type="checkbox" name="remember" defaultChecked={false} />
-        </label>
+    <div className="container-align">
+      <Header
+        img={deep_dish}
+        title={"Easy Recipes for Late Night Dinners"}
+        url={"/find-a-recipe"}
+      />
+      <form method="post">
+        <div className="container">
+          <label htmlFor="username">
+            <strong>Username</strong>
+          </label>
+          <input
+            type="text"
+            placeholder="Enter Username"
+            name="username"
+            required
+          />
+          <label htmlFor="password">
+            <strong>Password</strong>
+          </label>
+          <input
+            type="text"
+            placeholder="Enter Password"
+            name="password"
+            required
+          />
+          <div>
+            <button type="submit">Login</button>
+            <label>
+              <input type="checkbox" name="remember" defaultChecked={false} />
+            </label>
+          </div>
+          <div>
+            <button type="button" className="cancelbtn">
+              Cancel
+            </button>
+          </div>
+          <div>
+            <span className="psw">
+              <a href="google.com">Forgot password?</a>
+            </span>
+          </div>
         </div>
-        <div>
-          <button type="button" className="cancelbtn">
-            Cancel
-          </button>
-        </div>
-        <div>
-          <span className="psw">
-            <a href="google.com">Forgot password?</a>
-          </span>
-        </div>
-      </div>
-    </form>
+      </form>
+      <footer>
+        <Footer />
+      </footer>
+    </div>
   );
 }

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./../../App.css";
-import Form from "../../Form/Form";
+import Form from "../Form/Form";
 import Header from "../Header/Header";
 import recipe_form from "./../../assets/recipe_form.jpg"
-import Footer from "../../Footer/Footer";
+import Footer from "../Footer/Footer";
 
 export default function NewRecipe() {
   const [formData, setFormData] = useState({
