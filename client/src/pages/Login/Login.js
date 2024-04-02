@@ -36,26 +36,26 @@ export default function Login() {
   };
 
   const formFields = [
-    { name: "username", type: "text", label: "Username" },
-    { name: "password", type: "text", label: "Password" },
+    { name: "username", type: "text", label: "Username", required: true },
+    { name: "password", type: "password", label: "Password", required: true },
   ];
 
   return (
-    // <div>
-    //   <Form
-    //     fields={formFields}
-    //     userData={userData}
-    //     onInputChange={handleInputChange}
-    //     onSubmit={handleSubmit}
-    //   />
-    // </div>
     <div className="container-align">
       <Header
         img={deep_dish}
         title={"Easy Recipes for Late Night Dinners"}
         url={"/find-a-recipe"}
       />
-      <form method="post">
+      <div>
+        <Form
+          fields={formFields}
+          onInputChange={handleInputChange}
+          onSubmit={handleSubmit}
+          submitText={"Login"}
+        />
+      </div>
+      {/* <form method="post">
         <div className="container">
           <label htmlFor="username">
             <strong>Username</strong>
@@ -92,7 +92,7 @@ export default function Login() {
             </span>
           </div>
         </div>
-      </form>
+      </form> */}
       <footer>
         <Footer />
       </footer>

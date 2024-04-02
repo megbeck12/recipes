@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./../../App.css";
 import Form from "../Form/Form";
 import Header from "../Header/Header";
-import recipe_form from "./../../assets/recipe_form.jpg"
+import cake from "./../../assets/cake.jpg"
 import Footer from "../Footer/Footer";
+import "./../Form/Form.css";
 
 export default function NewRecipe() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ export default function NewRecipe() {
     cooking_time: "",
     cooking_device: "oven",
   });
+
+  const [submitted, setSubmitted] = useState(false);
 
   const postFormData = async () => {
     try {
@@ -30,6 +33,7 @@ export default function NewRecipe() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setSubmitted(true);
     await postFormData();
   };
 
@@ -46,21 +50,25 @@ export default function NewRecipe() {
       name: "recipe_name",
       type: "text",
       label: "Recipe Name",
+      required: true,
     },
     {
       name: "ingredients",
       type: "text",
       label: "Ingredients",
+      required: true
     },
     {
       name: "cooking_time",
       type: "text",
       label: "Cooking Time",
+      required: false,
     },
     {
       name: "cooking_device",
       type: "select",
       label: "Cooking Device",
+      required: false,
       options: [
         {
           value: "oven",
@@ -84,18 +92,35 @@ export default function NewRecipe() {
       name: "author_name",
       type: "text",
       label: "Author Name",
+      required: true
     },
   ];
   return (
     <div className="container-align">
-      <Header img={recipe_form} title={"Have a recipe you'd like to submit?"}/>
+      <Header img={cake} title={"Have a recipe you'd like to submit?"} />
       <div>
-        <Form
-          fields={formFields}
-          formData={formData}
-          onInputChange={handleInputChange}
-          onSubmit={handleSubmit}
-        />
+        {" "}
+        {submitted ? (
+          <div className="container">
+            <h2>Thanks for submitting!</h2>
+            <span>Have another recipe you'd like to submit?</span>
+            <div>
+              <button className="submit">
+                <a href="/create-new-recipe">Click here</a>
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <Form
+              fields={formFields}
+              formData={formData}
+              onInputChange={handleInputChange}
+              onSubmit={handleSubmit}
+              submitText={"Submit"}
+            />
+          </div>
+        )}
       </div>
       <footer>
         <Footer />

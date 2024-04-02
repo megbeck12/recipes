@@ -1,5 +1,5 @@
 /* Style inputs, select elements and textareas */
-input[type="text"],
+input[type="text"], input[type=password],
 select,
 textarea {
   width: 100%;
@@ -16,21 +16,10 @@ label {
   display: inline-block;
 }
 
-/* Style the submit button */
-input[type="submit"] {
-  background-color: #04aa6d;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  float: right;
-}
-
 /* Style the container */
 .container {
-  position: relative;
-  margin-top: 10px;
+  display: grid;
+  margin-top: 50px;
   width: 50%;
   margin-left: auto;
   margin-right: auto;
@@ -67,7 +56,7 @@ input[type="submit"] {
 
 /* Submit Button */
 .submit {
-  background-color: rgba(18, 2, 249, 0.677); /* Green */
+  background-color: rgba(39, 24, 243, 0.677); /* Green */
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -76,7 +65,6 @@ input[type="submit"] {
   padding: 10px 32px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 16px;
 }
 

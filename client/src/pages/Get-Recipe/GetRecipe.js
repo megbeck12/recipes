@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./GetRecipe.css";
 import "./../../App.css";
 import Header from "../Header/Header";
-import recipe_form from "./../../assets/recipe_form.jpg";
+import cake from "./../../assets/cake.jpg"
 import Footer from "../Footer/Footer";
 import RecipeCard from "../Cards/RecipeCard";
 import "./../Cards/Card.css";
@@ -154,7 +154,7 @@ export default function GetRecipe() {
 
   return (
     <div className="container-align">
-      <Header img={recipe_form} title={"Have a recipe you'd like to submit?"} />
+      <Header img={cake} title={"Have a recipe you'd like to submit?"} />
       <div className="search">
         <label htmlFor="recipe-searchbar">
           <input

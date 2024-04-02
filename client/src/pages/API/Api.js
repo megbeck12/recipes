@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import Header from "../Header/Header";
-import recipe_form from "./../../assets/recipe_form.jpg";
+import cake from "./../../assets/cake.jpg"
 import Footer from "../Footer/Footer";
 import RecipeCard from "../Cards/RecipeCard";
 import "./../Cards/Card.css";
@@ -28,7 +28,7 @@ export default function Api() {
 
   return (
     <div className="container-align">
-      <Header img={recipe_form} title={"API Test"} />
+      <Header img={cake} title={"API Test"} />
       <div className="card-container">
         {data.map((item) => (
           <div key={item} className="recipes">

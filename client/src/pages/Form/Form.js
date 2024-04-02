@@ -2,7 +2,7 @@ import React from "react";
 import "./Form.css";
 
 export default function Form(props) {
-  const {fields, onSubmit, onInputChange} = props;
+  const { fields, onSubmit, onInputChange, submitText } = props;
 
   return (
     <div className="container">
@@ -32,6 +32,7 @@ export default function Form(props) {
                   id={field.name}
                   name={field.name}
                   onChange={onInputChange}
+                  required={field.required}
                 />
               )}
             </div>
@@ -39,7 +40,7 @@ export default function Form(props) {
         ))}
         <div>
           <button type="submit" className="submit">
-            Submit
+            {submitText}
           </button>
         </div>
       </form>
